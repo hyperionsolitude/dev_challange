@@ -111,11 +111,19 @@ const findStudentToUpdate = async (paylaod) => {
     return rows;
 }
 
+const deleteStudentById = async (id) => {
+    // delete dependent profile first due to FK constraint, then user
+    await processDBRequest({ query: 'DELETE FROM user_profiles WHERE user_id = $1', queryParams: [id] });
+    const { rowCount } = await processDBRequest({ query: 'DELETE FROM users WHERE id = $1', queryParams: [id] });
+    return rowCount;
+}
+
 module.exports = {
     getRoleId,
     findAllStudents,
     addOrUpdateStudent,
     findStudentDetail,
     findStudentToSetStatus,
-    findStudentToUpdate
+    findStudentToUpdate,
+    deleteStudentById
 };
