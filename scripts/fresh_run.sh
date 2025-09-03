@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="/home/ubuntu/orig_clone/challenge"
+ROOT="/home/ubuntu/freshing/dev_challange"
 BACKEND_DIR="$ROOT/backend"
 FRONTEND_DIR="$ROOT/frontend"
 DB_NAME="school_mgmt"
@@ -51,13 +51,13 @@ SQL
 
 start_backend() {
   log "Starting backend..."
-  (cd "$BACKEND_DIR" && nohup npm start > /home/ubuntu/orig_clone/backend_server.log 2>&1 &)
+  (cd "$BACKEND_DIR" && nohup npm start > /home/ubuntu/freshing/dev_challange/backend_server.log 2>&1 &)
   wait_port 5007 60 || { echo "Backend failed to start on 5007" >&2; exit 1; }
 }
 
 start_frontend() {
   log "Starting frontend..."
-  (cd "$FRONTEND_DIR" && HUSKY=0 nohup npm run dev > /home/ubuntu/orig_clone/frontend_server.log 2>&1 &)
+  (cd "$FRONTEND_DIR" && HUSKY=0 nohup npm run dev > /home/ubuntu/freshing/dev_challange/frontend_server.log 2>&1 &)
   wait_port 5173 60 || { echo "Frontend failed to start on 5173" >&2; exit 1; }
 }
 
